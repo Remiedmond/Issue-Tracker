@@ -4,9 +4,10 @@ import cors from "cors";
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 let issues = [
-  { id: 1, title: "Exemple", description: "Bug de démonstration", status: "OPEN", priority: "MEDIUM" }
+  { id: 1, title: "Exemple", description: "Bug de démonstration", status: "OPEN", priority: "MEDIUM", createdAt: new Date().toISOString() },
+  { id: 2, title: "Exemple 2", description: "Bug de démonstration", status: "DONE", priority: "HIGH", createdAt: new Date().toISOString() },
+  { id: 3, title: "Exemple 3", description: "Bug de démonstration", status: "IN_PROGRESS", priority: "LOW", createdAt: new Date().toISOString() }
 ];
 
 app.get("/issues", (req, res) => {
@@ -17,7 +18,8 @@ app.post("/issues", (req, res) => {
   const newIssue = {
     id: Date.now(), 
     ...req.body,    
-    status: "OPEN"  
+    status: "OPEN",
+    createdAt: new Date().toISOString()  
   };
   issues.push(newIssue); 
   res.status(201).json(newIssue);
